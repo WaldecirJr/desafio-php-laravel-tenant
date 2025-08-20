@@ -9,3 +9,38 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@layer components{
+
+    /* Layout da pagina */
+    .content {
+        @apply flex-1 px-2 py-6 max-w-6xl mx-auto w-full;
+    }
+
+    .page-title{
+        @apply text-2xl;
+    }
+
+    /* Container principais */
+    .main-container {
+        @apply flex flex-col h-screen bg-gray-100;
+    }
+
+    /* Formulário */
+    .form-container {
+        @apply mt-6 bg-white shadow-md rounded-lg p-6;
+    }
+
+    .form-label {
+        @apply block text-sm font-semibold;
+    }
+
+    .form-input {
+        @apply border p-2 w-full mt-1 rounded-md border-blue-100 shadow-sm focus:border-blue-300 focus:ring-blue-200 focus:outline-none;
+    }
+
+    .btn-submit {
+        @apply bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-500;
+    }
+
+}
