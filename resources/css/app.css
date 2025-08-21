@@ -12,23 +12,53 @@
 
 @layer components{
 
-    /* Layout da pagina */
-    .content {
-        @apply flex-1 px-2 py-6 max-w-6xl mx-auto w-full;
+    /*------ Layout Login -----*/
+    .bg-login {
+        @apply bg-gray-700 min-h-screen flex flex-col justify-center items-center;
     }
 
-    .page-title{
-        @apply text-2xl;
+    .card-login {
+        @apply bg-gray-100 mt-6 w-full overflow-hidden px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg;
     }
+
+    .title-login{
+        @apply text-2xl font-semibold text-center text-blue-900;
+    }
+
+    .form-group-login{
+        @apply mt-4;
+    }
+
+    .form-label-login {
+        @apply text-gray-600 block text-sm font-medium;
+    }
+
+    .form-input-login {
+        @apply border mt-1 block w-full rounded-md border-2 border-gray-200 shadow-sm focus:border-gray-300 focus:ring-gray-200 focus:outline-none px-3 py-2;
+    }
+
+    .btn-group-login{
+        @apply mt-4 flex items-center justify-between;
+    }
+
+    /*------ Layout da pagina -----*/
+    .content {
+    @apply flex-1 px-2 py-6 max-w-6xl mx-auto w-full;
+    }
+
+    .page-title {
+    @apply text-2xl;
+    }
+}
 
     /* Container principais */
     .main-container {
-        @apply flex flex-col h-screen bg-gray-100;
+        @apply flex flex-col bg-gray-100 p-4 rounded-lg shadow-md w-full max-w-md;
     }
 
     /* Formulário */
     .form-container {
-        @apply mt-6 bg-white shadow-md rounded-lg p-6;
+        @apply mt-4 bg-white shadow-md rounded-lg p-6;
     }
 
     .form-label {
@@ -43,4 +73,44 @@
         @apply bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-500;
     }
 
-}
+    /* Alertas de login */
+    .alert-login {
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .alert-login-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .alert-login-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    }
+
+    /* Alertas de Transação */
+    .alert-transaction {
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .alert-transaction-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .alert-transaction-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
