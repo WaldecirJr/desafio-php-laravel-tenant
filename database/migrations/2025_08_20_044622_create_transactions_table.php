@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('documento')->nullable();
             $table->enum('status', ['Em processamento', 'Aprovada', 'Negada'])->default('Em processamento');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +28,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

@@ -22,10 +22,10 @@ class StoreTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'valor' => 'required|numeric|min:0',
-            'cpf' => 'required|string|size:14',
-            'documento' => 'nullable|string',
-            'status' => 'required|in:Em processamento,Aprovada,Negada',
+        'valor' => 'required|numeric|min:0',
+        'cpf' => 'required|digits:11', // apenas números
+        'documento' => 'nullable|file|mimes:pdf,jpg,jpeg|max:2048',
+        'status' => 'required|in:Em processamento,Aprovada,Negada',
         ];
     }
 }

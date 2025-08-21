@@ -20,23 +20,25 @@ class TransactionController extends Controller
 
     public function store(StoreTransactionRequest $request)
     {
-        $request->validate([
-            'valor' => 'required|numeric|min:0',
-            'cpf' => 'required|digits:11',
-            'documento' => 'nullable|file|mimes:pdf,jpg,jpeg|max:2048',
-            'status' => 'required|in:Em processamento,Aprovada,Negada',
-        ]);
+        try {
+            $data = $request->validated();
+            $data['user_id'] = Auth::id();
 
-        $data = $request->validated();
-        $data['user_id'] = Auth::id();
+            if ($request->hasFile('documento')) {
+                $data['documento'] = $request->file('documento')->store('documentos', 'public');
+            }
 
-        if ($request->hasFile('documento')) {
-            $data['documento'] = $request->file('documento')->store('documentos', 'public');
+            Transaction::create($data);
+            return redirect()->route('transactions.index')->with('success', 'Transação cadastrada com sucesso!');
+
+        } catch (\Exception $e) {
+            return back()->withInput()->with('error', 'Erro ao cadastrar transação');
         }
+    }
 
-        Transaction::create($data);
-
-        return redirect()->route('transactions.index')->with('success', 'Transação cadastrada com sucesso!');
+    public function show(Transaction $transaction)
+    {
+        return view('transactions.show', compact('transaction'));
     }
 
     public function edit(Transaction $transaction)
@@ -49,7 +51,7 @@ class TransactionController extends Controller
         $request->validate([
         'valor' => 'required|numeric|min:0',
         'cpf' => 'required|digits:11',
-        'documento' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        'documento' => 'nullable|file|mimes:pdf,jpg,jpeg|max:2048',
         'status' => 'required|in:Em processamento,Aprovada,Negada',
     ]);
 
