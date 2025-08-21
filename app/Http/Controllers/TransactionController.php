@@ -10,7 +10,8 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::with('user')->latest()->get();
+        $transactions = Transaction::with('user')->where('tenant_id', Auth::user()->tenant_id)->latest()->get();
+
         return view('transactions.index', compact('transactions'));
     }
 
@@ -23,6 +24,7 @@ class TransactionController extends Controller
         try {
             $data = $request->validated();
             $data['user_id'] = Auth::id();
+            $data['tenant_id'] = Auth::user()->tenant_id;
 
             if ($request->hasFile('documento')) {
                 $data['documento'] = $request->file('documento')->store('documentos', 'public');
@@ -48,6 +50,10 @@ class TransactionController extends Controller
 
     public function update(StoreTransactionRequest $request, Transaction $transaction)
     {
+
+        if ($transaction->tenant_id !== Auth::user()->tenant_id) {
+            abort(403, 'Ação não autorizada');
+        }
         $request->validate([
         'valor' => 'required|numeric|min:0',
         'cpf' => 'required|digits:11',
@@ -68,6 +74,11 @@ class TransactionController extends Controller
 
     public function destroy(Transaction $transaction)
     {
+
+        if ($transaction->tenant_id !== Auth::user()->tenant_id) {
+            abort(403, 'Ação não autorizada');
+        }
+
         $transaction->delete();
         return redirect()->route('transactions.index')->with('success', 'Transação excluída com sucesso!');
     }
