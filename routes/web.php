@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -7,5 +8,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('transactions', TransactionController::class)->middleware('auth');
-Route::post('/create-transaction', [TransactionController::class, 'create'])->name('transaction.create');
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::post('login', [AuthController::class, 'loginProcess'])->name('login.process');
+
+Route::middleware('auth')->group(function () {
+    Route::resource('transactions', TransactionController::class);
+});
