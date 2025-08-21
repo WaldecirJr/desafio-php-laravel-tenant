@@ -46,3 +46,5 @@ O objetivo da aplicação é permitir que o usuário autenticado realize o login
   **- MySQL/PostgreSQL (compatível com ambos, basta configurar no .env)**
   
   **- TailwindCSS (para estilização das telas)**
+  
+  **- Arquitetura Multi-Tenant**
